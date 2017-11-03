@@ -26,8 +26,8 @@ app.get('/new', (request, response) => {
 // REVIEW: These are routes for making API calls to enact CRUD operations on our database.
 app.get('/articles', (request, response) => {
   // REVIEW: This query will join the data together from our tables and send it back to the client.
-  // TODO: Write a SQL query which joins all data from articles and authors tables on the author_id value of each.
-  client.query(`SELECT * FROM articles ON authors INNER JOIN author_id`)
+  // DONE?: Write a SQL query which joins all data from articles and authors tables on the author_id value of each.
+  client.query(`SELECT * FROM articles INNER JOIN authors ON articles.author_id=authors.author_id`)
     .then(result => {
       response.send(result.rows);
     })
@@ -38,10 +38,10 @@ app.get('/articles', (request, response) => {
 
 app.post('/articles', (request, response) => {
   // TODO: Write a SQL query to insert a new author, ON CONFLICT DO NOTHING.
-  // TODO: In the provided array, add the author and "authorUrl" as data for the SQL query.
+    // TODO: In the provided array, add the author and "authorUrl" as data for the SQL query.
   client.query(
-    '',
-    [],
+    'INSERT INTO articles(author)'
+    // [author, authorUrl]=========================================
     function(err) {
       if (err) console.error(err);
       // REVIEW: This is our second query, to be executed when this first query is complete.
@@ -53,8 +53,8 @@ app.post('/articles', (request, response) => {
     // TODO: Write a SQL query to retrieve the author_id from the authors table for the new article.
     // TODO: In the provided array, add the author name as data for the SQL query.
     client.query(
-      ``,
-      [],
+      `SELECT FROM authors author_id`,
+      [author],
       function(err, result) {
         if (err) console.error(err);
 
